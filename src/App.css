@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+input {
+  outline-style: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 13px 14px;
+  width: auto;
+  font-size: 14px;
+  font-weight: 700;
+}

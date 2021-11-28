@@ -1,7 +1,26 @@
+import React, { useEffect, useState } from 'react';
+import _axios from "axios"
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const [elements, setElements] = useState(20);
+  const [fibonacci, setFibonacci] = useState('');
+  const [sorted, setSorted] = useState('');
+
+  useEffect(() => {
+    _axios.post('/fibonacci', { 'elements': elements }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    }).then(res => {
+      setFibonacci(JSON.stringify(res.data[0]['Fibonacci']))
+      setSorted(JSON.stringify(res.data[0]['Sorted']))
+    })
+  }, [elements]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +36,13 @@ function App() {
         >
           Learn React
         </a>
+
+        <p>
+          <input type="number" value={elements} onChange={(e)=>{setElements(e.target.value)}} style={{"width" : "100px"}}/><br />
+          Fibonacci: {fibonacci}<br />
+          Sorted: {sorted}
+        </p>
+
       </header>
     </div>
   );
